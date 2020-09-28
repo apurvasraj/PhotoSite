@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Photosite</title>
+</head>
+
+
+<body bgcolor="fdfff5">
+<div style="...">
+  <h1>PHOTOSITE</h1>
+  <h3>Photos of Users with Comments</h3>
+</div>
+<div>
+
+    <h1>Photos of <%= @user.first_name %> <%= @user.last_name %></h1>
+    <% @photos.each do |photo| %>
+
+    <p><%=image_tag("https://s3.us-east-1.amazonaws.com/apurva.photosite11/"+photo.file_name) %></p>
+
+    <p> photo created at <%= photo.date_time %></p>
+
+      <% @comments.where("photo_id=?" ,photo.id).each do |comment| %>
+        <li>
+          <p> comment: <%= comment.comment_text %></p>
+          <p> created at: <%= comment.date_time %></p>
+          <p> posted by: <%= link_to display_name(comment.user_id), user_photos_path(comment.user_id) %></p>
+        </li>
+
+      <% end %>
+
+  </ul>
+  <br>
+
+</div>
+
+<br>
+<%end%>
+
+</body>
+</html>
